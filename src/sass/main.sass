@@ -1,0 +1,56 @@
+*
+    padding: 0
+    margin: 0
+
+body #app
+    background-color: lightgray
+
+$border-radius: 14px
+$gray: slategray
+$border-style: 1px solid $gray
+$matrix: 5
+$tile-size: (100vw / $matrix) * .50
+
+// calculate the playfield tiles width by amount
+// :root
+// --matrix: #{matrix}
+// --tile-size: calc( ( 100vw / var(#{matrix}) ) * .50 )
+
+pre
+    background-color: #F1F8FF
+    display: block
+    width: 60px
+    padding: 3px
+    border: 1px solid maroon
+
+.sumfield
+    position: absolute
+    display: inline
+    font-size: 10rem
+    margin-right: 2vw
+    right: 2vw
+
+.game
+    font-family: 'Ultra', serif
+
+.game > div
+    border-width: 3px
+
+.game > div, .row > div
+    border-radius: 14px
+
+.game > .wrap
+    display: grid
+    width: max-content
+
+.row > div
+    border: $border-style
+    background-color: $gray
+    float: left
+    font-size: 2.5em
+    display: block
+    width: $tile-size
+    height: $tile-size
+    line-height: $tile-size
+    text-align: center
+    cursor: pointer
