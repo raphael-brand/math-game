@@ -9,7 +9,7 @@ export class GameUI extends Component {
 
     render() {
         return (
-            <Playfield>
+            <Playfield matrix={[[1, 2, 3], [1, 2, 3], [1, 2, 3]]} >
                 <div className="test">Math Game</div>
             </Playfield>);
     }

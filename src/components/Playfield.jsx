@@ -11,11 +11,39 @@ export class Playfield extends Component {
     }
 
 
+    clickHandler(e) {
+        console.log(e.target.innerText)
+    }
+
+
+    renderPlayfield(matrix, tileObject) {
+
+        const playfield = [];
+        let i = 0;
+        matrix.forEach((fields, index, array) => {
+            // console.log(value);
+            let numberRow = [];
+            fields.forEach((number_value) => {
+                const field = <div key={i} className="f" onClick={this.clickHandler}> {number_value.toString()}</div>;
+                numberRow.push(field);
+                i++;
+            });
+            playfield.push(<div key={index} className="row">{numberRow}</div>)
+        });
+
+        return playfield;
+    }
+
     render() {
         return (
             <div>
                 {this.props.children}
                 <div id="content">Test</div>
+                <div className="game">
+                    <div className="wrap">
+                        {this.renderPlayfield(this.props.matrix)}
+                    </div>
+                </div>
             </div>
         );
     }
