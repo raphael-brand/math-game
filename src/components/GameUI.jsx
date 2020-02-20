@@ -10,7 +10,7 @@ export class GameUI extends Component {
     render() {
         return (
             <Playfield>
-
+                <div className="test">Math Game</div>
             </Playfield>);
     }
 } 

@@ -6,7 +6,17 @@ export class Playfield extends Component {
         super(props);
     }
 
+    componentDidMount() {
+        console.log(this.props.children)
+    }
+
+
     render() {
-        return <div id="content">Test</div>;
+        return (
+            <div>
+                {this.props.children}
+                <div id="content">Test</div>
+            </div>
+        );
     }
 }
