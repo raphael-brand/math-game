@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import { GameUI } from './src/components/GameUI';
+
 class MathGame extends Component {
     render() {
-        return <h1>Hello JSX</h1>
+        return (
+            <div>
+                <h1>Hello JSX</h1>
+                <GameUI />
+            </div>
+        );
     }
 }
 

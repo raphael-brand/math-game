@@ -1,5 +1,5 @@
-node_modules
-.cache/
-dist/
+node_modules/
 npm*
 yarn.*
+.cache/*
+dist/main*
