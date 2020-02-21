@@ -12,9 +12,9 @@ export class Playfield extends Component {
     }
 
 
-    clickHandler(number) {
+    clickHandler(index, number) {
         return (e) => {
-            console.log('key:', e.currentTarget.getAttribute('key'), 'number:', number)
+            console.log('key:', index, 'number:', number)
         }
     }
 
@@ -27,11 +27,14 @@ export class Playfield extends Component {
             // console.log(value);
             let numberRow = [];
             fields.forEach((number_value) => {
+                // if playfield size shall be 50vw 
+                const size = 50 / array.length;
                 const style = {
-                    backgroundPositionX: ((Number(number_value)) * -16.6) + 'vw'
+                    backgroundPositionX: (Number(number_value) * (50 / array.length) * -1) + 'vw',
+                    width: size + 'vw', height: size + 'vw', lineHeight: size + 'vw'
                 }
                 const field =
-                    <div key={i} style={style} className="f image" onClick={this.clickHandler(number_value)}></div>
+                    <div data-key={i} key={i} style={style} className="f image" onClick={this.clickHandler(i, number_value)}></div>
 
                 numberRow.push(field);
                 i++;
