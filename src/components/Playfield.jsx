@@ -15,7 +15,7 @@ export class Playfield extends Component {
     clickHandler(index, number) {
         return (e) => {
             if (e.target.classList.toString().indexOf('clicked') > -1) return;
-            this.props.onClick(number, index);
+            this.props.onClick(number, index, e.target);
             console.log('key:', index, 'number:', number)
         }
     }
@@ -37,7 +37,7 @@ export class Playfield extends Component {
                     filter: colors.baseFilter + ' ' + colors.colors[colors.numberColors[number_value - 1]]
                 }
                 const field =
-                    <div data-key={i} key={i} style={style} className="f image" onClick={this.clickHandler(i, number_value)}></div>
+                    <div data-key={i} data-value={number_value} key={i} style={style} className="f image" onClick={this.clickHandler(i, number_value)}></div>
 
                 numberRow.push(field);
                 i++;

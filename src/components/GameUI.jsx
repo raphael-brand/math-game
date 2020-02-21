@@ -23,7 +23,49 @@ export class GameUI extends Component {
     }
 
     random() {
-        return Math.floor((this.props.minmax.max - this.props.minmax.min) * Math.random()) + parseFloat(this.props.minmax.min);
+        const rand = Math.floor((this.props.minmax.max - this.props.minmax.min) * Math.random()) + parseFloat(this.props.minmax.min);
+        const notSolved = document.querySelectorAll('.image:not(.clicked)');
+
+        let isGreater = false;
+        let isLower = false;
+        let sum, count = 0;
+
+        notSolved.forEach((el) => {
+            //if (++count > 3) return;
+            const val = el.getAttribute('data-value');
+            sum += parseInt(val);
+            //isGreater = !isGreater && val < rand
+            //                        isLower = !isLower && (val > rand) && sum > rand
+        });
+
+        isGreater = sum > 0 && sum < rand;
+        isLower = sum > 0 && sum > rand
+        if (isGreater && notSolved.length < 4) {
+            console.log('is gt & rest less than 4')
+            return sum;
+        }
+
+        if (isLower && notSolved.length < 4) {
+            console.log('is lt & rest less than 4')
+            return sum;
+        }
+
+        if (sum > rand && notSolved.length < 4) {
+            return sum;
+        }
+
+        console.log({ isLower, isGreater })
+
+        //        if (isLower);
+
+        /*        if (sum < 10 && sum > rand) {
+                    this.setState({ sum: sum });
+                } else
+                    if (sum < rand) {
+                        this.setState({ sum: sum })
+                    }
+        */
+        return rand;
     }
 
     newGame() {
@@ -37,21 +79,23 @@ export class GameUI extends Component {
     }
 
     renderSumField() {
+        let newVal = this.random();
         const sumfield = <div className="sumfield">{this.state.sum}</div>;
-        this.setState({ sum: this.random() });
+        this.setState({ sum: newVal });
         return sumfield;
     }
 
-    play(number, id) {
+    play(number, id, obj) {
         const sum = this.state.sum;
+        let newVal = this.random();
         if (sum - number > 0) {
             this.setState({ sum: sum - number })
         } else if (sum - number === 0) {
-            this.setState({ sum: this.random() });
+            this.setState({ sum: newVal });
         }
         else return;
 
-        document.querySelector(`div[data-key="${id}"]`).classList.add('clicked');
+        obj.classList.add('clicked');
     }
 
     render() {
