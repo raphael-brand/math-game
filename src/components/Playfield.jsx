@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import NumberTile from "./NumberTile";
 
 export class Playfield extends Component {
 
@@ -24,7 +25,10 @@ export class Playfield extends Component {
             // console.log(value);
             let numberRow = [];
             fields.forEach((number_value) => {
-                const field = <div key={i} className="f" onClick={this.clickHandler}> {number_value.toString()}</div>;
+
+                const field =
+                    <div key={i} className="f image" onClick={this.clickHandler}>{number_value.toString()}</div>
+
                 numberRow.push(field);
                 i++;
             });
