@@ -16,12 +16,18 @@ export class GameUI extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { sum: this.random() };
+        this.state = { sum: this.random(), matrix: this.props.init() };
         this.renderSumField = this.renderSumField.bind(this);
+        this.newGame = this.newGame.bind(this);
     }
 
     random() {
         return Math.floor((this.props.minmax.max - this.props.minmax.min) * Math.random()) + parseFloat(this.props.minmax.min);
+    }
+
+    newGame() {
+        this.setState({ matrix: this.props.init() });
+        this.renderSumField();
     }
 
     renderSumField() {
@@ -33,9 +39,9 @@ export class GameUI extends Component {
     render() {
         return (
             <div>
-                <Playfield matrix={this.props.init()} colors={{ baseFilter, numberColors, colors }}>
+                <Playfield matrix={this.state.matrix} colors={{ baseFilter, numberColors, colors }}>
                     <div className="test">Math Game</div>
-                    <button onClick={this.renderSumField}>New Game</button>
+                    <button onClick={this.newGame}>New Game</button>
                     <div className="sumfield">{this.state.sum}</div>
                 </Playfield>
             </div>
