@@ -29,7 +29,7 @@ class MathGame extends Component {
         let val;
         while (sum < this.state.sum_max && index < amount) {
             for (let i = 0; arr.length < amount; i++ , index++) {
-                val = Math.floor((8 * Math.random()) + 1);
+                val = Math.floor((9 * Math.random()) + 1);
                 sum += val;
 
                 if (arr.toString().indexOf(val) > -1) {
@@ -58,7 +58,7 @@ class MathGame extends Component {
         return (
             <div>
                 <h1>Hello JSX</h1>
-                <GameUI matrix={this.initNumberSets(3)} />
+                <GameUI matrix={this.initNumberSets(5)} />
             </div>
         );
     }
