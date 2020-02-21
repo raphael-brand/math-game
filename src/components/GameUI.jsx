@@ -19,6 +19,7 @@ export class GameUI extends Component {
         this.state = { sum: this.random(), matrix: this.props.init() };
         this.renderSumField = this.renderSumField.bind(this);
         this.newGame = this.newGame.bind(this);
+        this.play = this.play.bind(this);
     }
 
     random() {
@@ -27,6 +28,11 @@ export class GameUI extends Component {
 
     newGame() {
         this.setState({ matrix: this.props.init() });
+
+        document.querySelectorAll('.clicked').forEach((el) => {
+            el.classList.remove('clicked');
+        });
+
         this.renderSumField();
     }
 
@@ -36,10 +42,22 @@ export class GameUI extends Component {
         return sumfield;
     }
 
+    play(number, id) {
+        const sum = this.state.sum;
+        if (sum - number > 0) {
+            this.setState({ sum: sum - number })
+        } else if (sum - number === 0) {
+            this.setState({ sum: this.random() });
+        }
+        else return;
+
+        document.querySelector(`div[data-key="${id}"]`).classList.add('clicked');
+    }
+
     render() {
         return (
             <div>
-                <Playfield matrix={this.state.matrix} colors={{ baseFilter, numberColors, colors }}>
+                <Playfield onClick={this.play} matrix={this.state.matrix} colors={{ baseFilter, numberColors, colors }}>
                     <div className="test">Math Game</div>
                     <button onClick={this.newGame}>New Game</button>
                     <div className="sumfield">{this.state.sum}</div>

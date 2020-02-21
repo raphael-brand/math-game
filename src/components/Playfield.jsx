@@ -14,6 +14,8 @@ export class Playfield extends Component {
 
     clickHandler(index, number) {
         return (e) => {
+            if (e.target.classList.toString().indexOf('clicked') > -1) return;
+            this.props.onClick(number, index);
             console.log('key:', index, 'number:', number)
         }
     }
