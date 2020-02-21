@@ -13,18 +13,30 @@ const numberColors = ['blue', 'brown', 'green', 'orange', 'blue', 'orange', 'gre
 
 export class GameUI extends Component {
 
-    renderSumField(number_string) {
-        const sumfield = <div className="sumfield">{number_string}</div>;
-        this.sum = parseFloat(number_string);
+
+    constructor(props) {
+        super(props);
+        this.state = { sum: this.random() };
+        this.renderSumField = this.renderSumField.bind(this);
+    }
+
+    random() {
+        return Math.floor((this.props.minmax.max - this.props.minmax.min) * Math.random()) + parseFloat(this.props.minmax.min);
+    }
+
+    renderSumField() {
+        const sumfield = <div className="sumfield">{this.state.sum}</div>;
+        this.setState({ sum: this.random() });
         return sumfield;
     }
 
     render() {
         return (
             <div>
-                {this.renderSumField("15")}
-                <Playfield matrix={this.props.matrix} colors={{ baseFilter, numberColors, colors }}>
+                <Playfield matrix={this.props.init()} colors={{ baseFilter, numberColors, colors }}>
                     <div className="test">Math Game</div>
+                    <button onClick={this.renderSumField}>New Game</button>
+                    <div className="sumfield">{this.state.sum}</div>
                 </Playfield>
             </div>
         );

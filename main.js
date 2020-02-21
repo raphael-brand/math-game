@@ -10,8 +10,8 @@ class MathGame extends Component {
 
     constructor(props) {
         super(props);
-        const sum_min = 2;
-        const sum_max = 27;
+        const sum_min = this.props.min;
+        const sum_max = this.props.max;
         this.state = {
             sum_range: [sum_min, sum_max],
             sum_min: sum_min,
@@ -19,6 +19,7 @@ class MathGame extends Component {
         };
 
         this.sets = new Array();
+        this.newGame = this.newGame.bind(this);
     }
 
 
@@ -54,17 +55,21 @@ class MathGame extends Component {
     }
 
 
+    newGame() {
+        return this.initNumberSets(5);
+    }
+
     render() {
         return (
             <div>
                 <h1>Hello JSX</h1>
-                <GameUI matrix={this.initNumberSets(5)} />
+                <GameUI minmax={{ min: this.props.min, max: this.props.max }} init={this.newGame} />
             </div>
         );
     }
 }
 
 ReactDOM.render(
-    <MathGame />,
+    <MathGame min="2" max="27" />,
     document.querySelector('#app')
 )
