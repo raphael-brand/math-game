@@ -20,7 +20,7 @@ export class Playfield extends Component {
 
 
     renderPlayfield(matrix, tileObject) {
-
+        const colors = this.props.colors;
         const playfield = [];
         let i = 0;
         matrix.forEach((fields, index, array) => {
@@ -31,7 +31,8 @@ export class Playfield extends Component {
                 const size = 50 / array.length;
                 const style = {
                     backgroundPositionX: (Number(number_value) * (50 / array.length) * -1) + 'vw',
-                    width: size + 'vw', height: size + 'vw', lineHeight: size + 'vw'
+                    width: size + 'vw', height: size + 'vw', lineHeight: size + 'vw',
+                    filter: colors.baseFilter + ' ' + colors.colors[colors.numberColors[number_value - 1]]
                 }
                 const field =
                     <div data-key={i} key={i} style={style} className="f image" onClick={this.clickHandler(i, number_value)}></div>
