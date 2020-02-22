@@ -17,7 +17,7 @@ export class GameUI extends Component {
     constructor(props) {
         super(props);
         this.state = { sum: this.random(), matrix: this.props.init() };
-        this.renderSumField = this.renderSumField.bind(this);
+        this.createNumber = this.createNumber.bind(this);
         this.newGame = this.newGame.bind(this);
         this.play = this.play.bind(this);
     }
@@ -38,7 +38,7 @@ export class GameUI extends Component {
             //                        isLower = !isLower && (val > rand) && sum > rand
         });
 
-        isGreater = sum > 0 && sum < rand;
+        /*isGreater = sum > 0 && sum < rand;
         isLower = sum > 0 && sum > rand
         if (isGreater && notSolved.length < 4) {
             console.log('is gt & rest less than 4')
@@ -53,7 +53,7 @@ export class GameUI extends Component {
         if (sum > rand && notSolved.length < 4) {
             return sum;
         }
-
+*/
         console.log({ isLower, isGreater })
 
         //        if (isLower);
@@ -75,23 +75,25 @@ export class GameUI extends Component {
             el.classList.remove('clicked');
         });
 
-        this.renderSumField();
+        this.createNumber();
     }
 
-    renderSumField() {
-        let newVal = this.random();
-        const sumfield = <div className="sumfield">{this.state.sum}</div>;
+    createNumber(number) {
+        if (!number)
+            number = this.state.sum;
+        let newVal = number;
+        while (newVal == number)
+            newVal = this.random();
         this.setState({ sum: newVal });
-        return sumfield;
     }
 
     play(number, id, obj) {
         const sum = this.state.sum;
-        let newVal = this.random();
+
         if (sum - number > 0) {
             this.setState({ sum: sum - number })
         } else if (sum - number === 0) {
-            this.setState({ sum: newVal });
+            this.createNumber(number);
         }
         else return;
 
