@@ -1,14 +1,26 @@
-# testing
+## Installation
 
-#### after solving (cases ordered by occurence probability):
-    
-- the **sum** of the remaining tiles is **greater** than the _number_
-- remaining **sum** is **lower** than the _number_
-- remaining tiles don't fit the number (too much and too high)
-- numbers repeating (are the same than the last substracted number before solving)
+no webpack in this app. parcel will be used
 
+```bash    npm install --save react
+    npm install --save react-dom
+    npm install --save-dev parcel-bundler
+    npm install --save-dev babel-preset-env
+    npm install --save-dev babel-preset-react
+```
+## Setup
 
-#### add the feature:
+### Babel
 
-- revoke a chosen number
-- mark the chosen numbers differently than the solved
+    // .babelrc
+    {
+    "presets": ["env", "react"]
+    }
+
+### Babel
+_add the start script to package.json_
+
+    // package.json
+    "scripts": {
+    "start": "parcel index.html"
+    }
