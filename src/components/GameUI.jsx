@@ -57,13 +57,12 @@ export class GameUI extends Component {
         const sum = this.state.sum;
 
         if (sum - number > 0) {
-            this.remainingTiles--;
             this.setState({ sum: sum - number })
         } else if (sum - number === 0) {
             this.createNumber(number);
         }
         else return;
-
+        this.remainingTiles--;
         obj.classList.add('clicked');
     }
 
