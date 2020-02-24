@@ -5,33 +5,35 @@ export class Sumfield extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { sum: (props.value) }
         this.random = this.random.bind(this);
-    }
+        this.state = { sum: 0 }
 
+    }
 
 
     render() {
-        console.log('remaining:', this.props.remainingTiles)
-        return <div className="sumfield">{this.props.value}</div>
+        this.result = this.random(this.props.value)
+        console.log('remaining:', this.props.remainingTiles, 'remaining sum: ', this.result.remaining)
+        return <div className="sumfield">{this.result.sum}</div>
     }
 
-    random() {
-        let val = this.props.sum();
+    random(val) {
+
         const notSolved = document.querySelectorAll('.image:not(.clicked)');
 
         let isGreater = false;
         let isLower = false;
-        let sum, count = 0;
+        let remaining = 0, count = 0;
 
         notSolved.forEach((el) => {
             //if (++count > 3) return;
             const val = el.getAttribute('data-value');
-            sum += parseInt(val);
+            remaining += parseInt(val);
             //isGreater = !isGreater && val < rand
             //                        isLower = !isLower && (val > rand) && sum > rand
         });
 
+        console.info(remaining)
         /*isGreater = sum > 0 && sum < rand;
         isLower = sum > 0 && sum > rand
         if (isGreater && notSolved.length < 4) {
@@ -48,7 +50,7 @@ export class Sumfield extends Component {
             return sum;
         }
 */
-        console.log({ isLower, isGreater })
+        console.log('remaining sum:', remaining, { isLower, isGreater })
 
         //        if (isLower);
 
@@ -59,8 +61,7 @@ export class Sumfield extends Component {
                         this.setState({ sum: sum })
                     }
         */
-        this.setState({ sum: val });
-        return val;
+        return { sum: val, remaining };
     }
 }
 
