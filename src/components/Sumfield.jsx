@@ -22,26 +22,25 @@ export class Sumfield extends Component {
     random(val) {
 
         const notSolved = document.querySelectorAll('.image:not(.clicked)');
-
+        let newVal = val;
         let isGreater = false;
         let isLower = false;
         let remaining = 0, count = 0;
         this.not_solved = {};
 
         notSolved.forEach((el) => {
-            //if (++count > 3) return;
             const val = el.getAttribute('data-value');
             remaining += parseInt(val);
             this.not_solved[el.getAttribute('data-key').toString()] = parseInt(val);
-            //isGreater = !isGreater && val < rand
-            //                        isLower = !isLower && (val > rand) && sum > rand
         });
 
-        console.info(remaining)
+        if (remaining <= 20 && remaining > 0) {
+            newVal = remaining
+        }
 
-        console.log('remaining sum:', remaining, { isLower, isGreater });
+        //        console.log('remaining sum:', remaining, { isLower, isGreater });
 
-        return { sum: val, remaining, not_solved: this.not_solved };
+        return { sum: newVal, remaining, not_solved: this.not_solved };
     }
 }
 
