@@ -17,7 +17,7 @@ no webpack in this app. parcel will be used
     "presets": ["env", "react"]
     }
 
-### Babel
+### Start script
 _add the start script to package.json_
 
     // package.json
