@@ -104,7 +104,7 @@ export class GameUI extends Component {
         return (
             <div>
                 <Playfield onClick={this.play} matrix={this.state.matrix} colors={{ baseFilter, numberColors, colors }}>
-                    <div className="test">Math Game</div>
+                    <h1>Math Game</h1>
                     <button onClick={this.newGame}>New Game</button>
                     <div className="sumfield">{this.state.sum}</div>
                 </Playfield>

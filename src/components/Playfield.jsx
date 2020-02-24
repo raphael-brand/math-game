@@ -52,7 +52,6 @@ export class Playfield extends Component {
         return (
             <div>
                 {this.props.children}
-                <div id="content">Test</div>
                 <div className="game">
                     <div className="wrap">
                         {this.renderPlayfield(this.props.matrix)}

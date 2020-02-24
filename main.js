@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 import { GameUI } from './src/components/GameUI';
 
@@ -62,7 +63,6 @@ class MathGame extends Component {
     render() {
         return (
             <div>
-                <h1>Hello JSX</h1>
                 <GameUI minmax={{ min: this.props.min, max: this.props.max }} init={this.newGame} />
             </div>
         );
@@ -73,3 +73,8 @@ ReactDOM.render(
     <MathGame min="2" max="27" />,
     document.querySelector('#app')
 )
+
+MathGame.propTypes = {
+    min: PropTypes.number,
+    max: PropTypes.number
+}
