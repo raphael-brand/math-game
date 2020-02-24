@@ -7,12 +7,14 @@ export class Sumfield extends Component {
         super(props);
         this.random = this.random.bind(this);
         this.state = { sum: 0 }
+        this.not_solved = new Object();
 
     }
 
 
     render() {
         this.result = this.random(this.props.value)
+        console.log('not solved', JSON.stringify(this.not_solved))
         console.log('remaining:', this.props.remainingTiles, 'remaining sum: ', this.result.remaining)
         return <div className="sumfield">{this.result.sum}</div>
     }
@@ -24,44 +26,22 @@ export class Sumfield extends Component {
         let isGreater = false;
         let isLower = false;
         let remaining = 0, count = 0;
+        this.not_solved = {};
 
         notSolved.forEach((el) => {
             //if (++count > 3) return;
             const val = el.getAttribute('data-value');
             remaining += parseInt(val);
+            this.not_solved[el.getAttribute('data-key').toString()] = parseInt(val);
             //isGreater = !isGreater && val < rand
             //                        isLower = !isLower && (val > rand) && sum > rand
         });
 
         console.info(remaining)
-        /*isGreater = sum > 0 && sum < rand;
-        isLower = sum > 0 && sum > rand
-        if (isGreater && notSolved.length < 4) {
-            console.log('is gt & rest less than 4')
-            return sum;
-        }
 
-        if (isLower && notSolved.length < 4) {
-            console.log('is lt & rest less than 4')
-            return sum;
-        }
+        console.log('remaining sum:', remaining, { isLower, isGreater });
 
-        if (sum > rand && notSolved.length < 4) {
-            return sum;
-        }
-*/
-        console.log('remaining sum:', remaining, { isLower, isGreater })
-
-        //        if (isLower);
-
-        /*        if (sum < 10 && sum > rand) {
-                    this.setState({ sum: sum });
-                } else
-                    if (sum < rand) {
-                        this.setState({ sum: sum })
-                    }
-        */
-        return { sum: val, remaining };
+        return { sum: val, remaining, not_solved: this.not_solved };
     }
 }
 
