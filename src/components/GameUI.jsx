@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Playfield } from './Playfield';
+import { Sumfield } from './Sumfield';
+
 
 const baseFilter = 'invert(100%) sepia(100%) ';
 const colors = {
@@ -14,63 +16,26 @@ const numberColors = ['blue', 'brown', 'green', 'orange', 'blue', 'orange', 'gre
 export class GameUI extends Component {
 
 
+
+
     constructor(props) {
         super(props);
         this.state = { sum: this.random(), matrix: this.props.init() };
+        this.remainingTiles = this.state.matrix.length * this.state.matrix.length;
         this.createNumber = this.createNumber.bind(this);
         this.newGame = this.newGame.bind(this);
         this.play = this.play.bind(this);
+        this.random = this.random.bind(this)
     }
 
     random() {
         const rand = Math.floor((this.props.minmax.max - this.props.minmax.min) * Math.random()) + parseFloat(this.props.minmax.min);
-        const notSolved = document.querySelectorAll('.image:not(.clicked)');
-
-        let isGreater = false;
-        let isLower = false;
-        let sum, count = 0;
-
-        notSolved.forEach((el) => {
-            //if (++count > 3) return;
-            const val = el.getAttribute('data-value');
-            sum += parseInt(val);
-            //isGreater = !isGreater && val < rand
-            //                        isLower = !isLower && (val > rand) && sum > rand
-        });
-
-        /*isGreater = sum > 0 && sum < rand;
-        isLower = sum > 0 && sum > rand
-        if (isGreater && notSolved.length < 4) {
-            console.log('is gt & rest less than 4')
-            return sum;
-        }
-
-        if (isLower && notSolved.length < 4) {
-            console.log('is lt & rest less than 4')
-            return sum;
-        }
-
-        if (sum > rand && notSolved.length < 4) {
-            return sum;
-        }
-*/
-        console.log({ isLower, isGreater })
-
-        //        if (isLower);
-
-        /*        if (sum < 10 && sum > rand) {
-                    this.setState({ sum: sum });
-                } else
-                    if (sum < rand) {
-                        this.setState({ sum: sum })
-                    }
-        */
         return rand;
     }
 
     newGame() {
-        this.setState({ matrix: this.props.init() });
-
+        this.setState({ matrix: this.props.init(), sum: this.random() });
+        this.remainingTiles = this.state.matrix.length * this.state.matrix.length;
         document.querySelectorAll('.clicked').forEach((el) => {
             el.classList.remove('clicked');
         });
@@ -85,12 +50,14 @@ export class GameUI extends Component {
         while (newVal == number)
             newVal = this.random();
         this.setState({ sum: newVal });
+        return newVal
     }
 
     play(number, id, obj) {
         const sum = this.state.sum;
 
         if (sum - number > 0) {
+            this.remainingTiles--;
             this.setState({ sum: sum - number })
         } else if (sum - number === 0) {
             this.createNumber(number);
@@ -106,7 +73,7 @@ export class GameUI extends Component {
                 <Playfield onClick={this.play} matrix={this.state.matrix} colors={{ baseFilter, numberColors, colors }}>
                     <h1>Math Game</h1>
                     <button onClick={this.newGame}>New Game</button>
-                    <div className="sumfield">{this.state.sum}</div>
+                    <Sumfield remainingTiles={this.remainingTiles} sum={() => this.createNumber} value={this.state.sum} />
                 </Playfield>
             </div>
         );
