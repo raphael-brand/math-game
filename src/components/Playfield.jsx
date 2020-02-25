@@ -7,16 +7,18 @@ export class Playfield extends Component {
         super(props);
     }
 
-    componentDidMount() {
-        console.log(this.props.children)
+    componentDidUpdate() {
+        if (document.querySelector('.played.clicked'))
+            document.querySelectorAll('.played.clicked').forEach(el => {
+                el.classList.remove('clicked');
+            });
     }
-
 
     clickHandler(index, number) {
         return (e) => {
-            if (e.target.classList.toString().indexOf('clicked') > -1) return;
+            if (e.target.classList.toString().indexOf('played') > -1) return;
             this.props.onClick(number, index, e.target);
-            console.log('key:', index, 'number:', number)
+            // console.log('key:', index, 'number:', number)
         }
     }
 
