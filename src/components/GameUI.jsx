@@ -51,14 +51,12 @@ export class GameUI extends Component {
 
     random() {
         const rand = Math.floor((this.props.minmax.max - this.props.minmax.min) * Math.random()) + parseFloat(this.props.minmax.min);
-        //console.log(this.state.matrix)
         return rand;
     }
 
     newGame() {
-        let matrix = this.props.init()
-        this.setState({ matrix: matrix, sum: this.random(), countdown: 60 });
-        this.remainingTiles = matrix.length * matrix.length;
+        this.setState({ matrix: this.props.init(), sum: this.random(), countdown: 60 });
+        this.remainingTiles = this.state.matrix.length * this.state.matrix.length;
         document.querySelectorAll('.clicked, .played').forEach((el) => {
             el.classList.remove('clicked');
             el.classList.remove('played');
@@ -83,9 +81,12 @@ export class GameUI extends Component {
     play(number, id, obj) {
         const sum = this.state.sum;
 
+        if (sum < number && obj.getAttribute('class').indexOf('clicked') == -1) return;
+
         console.log('remainingTiles: ', this.remainingTiles, 'sum: ', sum)
 
         if (obj.getAttribute('class').indexOf('clicked') > -1) {
+
             this.setState({ sum: sum + number });
             this.remainingTiles++;
             obj.classList.remove('clicked');
@@ -94,7 +95,7 @@ export class GameUI extends Component {
 
         if (sum - number > 0) {
             this.setState({ sum: sum - number })
-        } else if (sum - number === 0 && this.remainingTiles !== 1) {
+        } else if (sum - number === 0 && this.remainingTiles > 1) {
             this.createNumber(number);
             document.querySelectorAll('.clicked').forEach(el => {
                 el.classList.add('played');
@@ -103,16 +104,15 @@ export class GameUI extends Component {
 
             this.remainingTiles--;
             return;
-        }
-        if (this.remainingTiles <= 1) {
+        } else if (this.remainingTiles === 1) {
             //            this.setState({ matrix: [] });
             alert('you won!')
             this.newGame();
             return;
         }
-        //        else return;
+        else return;
+
         this.remainingTiles--;
-        console.info('countin remaining tiles %c' + this.remainingTiles, 'color: red')
         obj.classList.add('clicked');
     }
 
