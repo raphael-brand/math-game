@@ -92,7 +92,7 @@ export class GameUI extends Component {
 
         if (sum - number > 0) {
             this.setState({ sum: sum - number })
-        } else if (sum - number === 0 && this.remainingTiles > 1) {
+        } else if (sum - number === 0 && this.remainingTiles !== 1) {
             this.createNumber(number);
             document.querySelectorAll('.clicked').forEach(el => {
                 el.classList.add('played');
@@ -101,7 +101,8 @@ export class GameUI extends Component {
 
             this.remainingTiles--;
             return;
-        } else if (this.remainingTiles === 1) {
+        }
+        else if (this.remainingTiles <= 1) {
             //            this.setState({ matrix: [] });
             alert('you won!')
             this.newGame();

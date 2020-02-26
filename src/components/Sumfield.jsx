@@ -21,7 +21,7 @@ export class Sumfield extends Component {
 
     random(val) {
 
-        const notSolved = document.querySelectorAll('.image:not(.clicked)');
+        const notSolved = document.querySelectorAll('.image:not(.played):not(.clicked)');
         let newVal = val;
         let isGreater = false;
         let isLower = false;
@@ -36,6 +36,13 @@ export class Sumfield extends Component {
 
         if (remaining <= 20 && remaining > 0) {
             newVal = remaining
+        }
+        else {
+            if (!Array(this.not_solved).filter((value) => {
+                return value < this.state.sum;
+            })) {
+                newVal = this.random();
+            }
         }
 
         //        console.log('remaining sum:', remaining, { isLower, isGreater });
