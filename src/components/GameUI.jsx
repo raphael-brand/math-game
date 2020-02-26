@@ -51,12 +51,14 @@ export class GameUI extends Component {
 
     random() {
         const rand = Math.floor((this.props.minmax.max - this.props.minmax.min) * Math.random()) + parseFloat(this.props.minmax.min);
+        //console.log(this.state.matrix)
         return rand;
     }
 
     newGame() {
-        this.setState({ matrix: this.props.init(), sum: this.random(), countdown: 60 });
-        this.remainingTiles = this.state.matrix.length * this.state.matrix.length;
+        let matrix = this.props.init()
+        this.setState({ matrix: matrix, sum: this.random(), countdown: 60 });
+        this.remainingTiles = matrix.length * matrix.length;
         document.querySelectorAll('.clicked, .played').forEach((el) => {
             el.classList.remove('clicked');
             el.classList.remove('played');
@@ -102,15 +104,15 @@ export class GameUI extends Component {
             this.remainingTiles--;
             return;
         }
-        else if (this.remainingTiles <= 1) {
+        if (this.remainingTiles <= 1) {
             //            this.setState({ matrix: [] });
             alert('you won!')
             this.newGame();
             return;
         }
-        else return;
-
+        //        else return;
         this.remainingTiles--;
+        console.info('countin remaining tiles %c' + this.remainingTiles, 'color: red')
         obj.classList.add('clicked');
     }
 

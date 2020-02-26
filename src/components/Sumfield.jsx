@@ -37,9 +37,13 @@ export class Sumfield extends Component {
         if (remaining <= 20 && remaining > 0) {
             newVal = remaining
         }
-        else {
+        else if (this.remainingTiles < 10) {
             if (!Array(this.not_solved).filter((value) => {
-                return value < this.state.sum;
+                // if the random value 'val' is smaller than any of the remaining tiles
+                return !(value > val);
+                // or is not matching at all
+            }) || !Array(this.not_solved).filter((value) => {
+                return value === val
             })) {
                 newVal = this.random();
             }
