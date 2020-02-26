@@ -49,6 +49,13 @@ export class Sumfield extends Component {
             }
         }
 
+        if (this.props.remainingTiles === 0) {
+            //            this.setState({ matrix: [] });
+            alert('you won!')
+            this.props.reset();
+            //return;
+        }
+
         //        console.log('remaining sum:', remaining, { isLower, isGreater });
 
         return { sum: newVal, remaining, not_solved: this.not_solved };
