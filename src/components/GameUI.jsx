@@ -103,11 +103,6 @@ export class GameUI extends Component {
 
             this.remainingTiles--;
             return;
-        } else if (this.remainingTiles === 1) {
-            //            this.setState({ matrix: [] });
-            alert('you won!')
-            this.newGame();
-            return;
         }
         else return;
 
