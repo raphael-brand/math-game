@@ -39,10 +39,8 @@ export class GameUI extends Component {
                 this.countdown();
             }
             else {
-                alert('Time is up :-(');
                 clearTimeout(this.timeout);
                 this.timeout = 0;
-                this.setState({ countdown: 60, matrix: [] });
             }
         }
             , 1000);
@@ -55,8 +53,9 @@ export class GameUI extends Component {
     }
 
     newGame() {
+        let matrix = this.state.matrix;
         this.setState({ matrix: this.props.init(), sum: this.random(), countdown: 60 });
-        this.remainingTiles = this.state.matrix.length * this.state.matrix.length;
+        this.remainingTiles = matrix.length * matrix.length;
         document.querySelectorAll('.clicked, .played').forEach((el) => {
             el.classList.remove('clicked');
             el.classList.remove('played');
@@ -104,11 +103,6 @@ export class GameUI extends Component {
 
             this.remainingTiles--;
             return;
-        } else if (this.remainingTiles === 1) {
-            //            this.setState({ matrix: [] });
-            alert('you won!')
-            this.newGame();
-            return;
         }
         else return;
 
@@ -122,7 +116,7 @@ export class GameUI extends Component {
                 <Playfield onClick={this.play} matrix={this.state.matrix} colors={{ baseFilter, numberColors, colors }}>
                     <h1>Math Game</h1>
                     <button onClick={this.newGame}>New Game</button>
-                    <Sumfield remainingTiles={this.remainingTiles} sum={() => this.createNumber} value={this.state.sum} />
+                    <Sumfield remainingTiles={this.remainingTiles} sum={() => this.createNumber} value={this.state.sum} reset={this.newGame} />
                     <p id="countdown">{this.state.countdown}</p>
                 </Playfield>
             </div>
